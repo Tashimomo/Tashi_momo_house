@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tashi Momo House</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A017;
+    --deep-red: #8B1A1A;
+    --warm-yellow: #F5C518;
+    --cream: #FDF6E3;
+    --dark: #1A1208;
+    --text-brown: #3D2B1F;
+    --light-gold: #F9E08A;
+    --rust: #C0392B;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: ‘Barlow’, sans-serif; background: var(–cream); color: var(–text-brown); overflow-x: hidden; }
+
+/* NAV */
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+display: flex; align-items: center; justify-content: space-between;
+padding: 16px 5%;
+background: rgba(26,18,8,0.95);
+backdrop-filter: blur(8px);
+border-bottom: 2px solid var(–gold);
+}
+.nav-logo { font-family: ‘Playfair Display’, serif; font-size: 1.3rem; color: var(–warm-yellow); cursor: pointer; }
+.nav-logo span { color: #fff; font-weight: 400; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+color: #ccc; text-decoration: none;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+cursor: pointer; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(–warm-yellow); }
+.halal-badge-nav { background: #1a6b1a; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; }
+
+/* PRAYER FLAGS */
+.prayer-flags { position: absolute; top: 0; left: 0; right: 0; height: 10px; display: flex; }
+.prayer-flags span { flex: 1; display: block; }
+.pf1{background:#3a7abf}.pf2{background:#f5c518}.pf3{background:#e8e8e8}.pf4{background:#c0392b}.pf5{background:#2ecc71}
+.pf6{background:#3a7abf}.pf7{background:#f5c518}.pf8{background:#e8e8e8}.pf9{background:#c0392b}.pf10{background:#2ecc71}
+
+/* HERO */
+.hero {
+min-height: 100vh; background: var(–dark);
+display: flex; align-items: center; justify-content: center;
+position: relative; overflow: hidden; padding: 120px 5% 80px;
+}
+.hero::before {
+content: ‘’; position: absolute; inset: 0;
+background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(212,160,23,0.12) 0%, transparent 70%),
+radial-gradient(circle at 80% 80%, rgba(139,26,26,0.2) 0%, transparent 50%);
+}
+.hero-content { text-align: center; position: relative; z-index: 1; animation: fadeUp 1s ease forwards; }
+.hero-eyebrow { font-family: ‘Barlow Condensed’, sans-serif; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(–gold); margin-bottom: 16px; }
+.hero h1 { font-family: ‘Playfair Display’, serif; font-size: clamp(3.5rem,9vw,7rem); font-weight: 900; line-height: 0.95; color: #fff; margin-bottom: 8px; }
+.hero h1 .accent { color: var(–warm-yellow); display: block; }
+.hero-sub { font-family: ‘Barlow Condensed’, sans-serif; font-size: clamp(1rem,2.5vw,1.4rem); letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+.hero-badges { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 44px; }
+.badge { border: 1px solid rgba(212,160,23,0.4); color: var(–light-gold); padding: 8px 20px; border-radius: 30px; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; font-family: ‘Barlow Condensed’, sans-serif; }
+.badge.green { border-color: rgba(46,204,113,0.5); color: #7dfcb0; }
+.hero-cta {
+display: inline-block; background: var(–gold); color: var(–dark);
+font-family: ‘Barlow Condensed’, sans-serif; font-size: 1rem; font-weight: 700;
+letter-spacing: 3px; text-transform: uppercase; padding: 16px 44px;
+border-radius: 4px; cursor: pointer; border: none; outline: none;
+transition: background 0.2s, transform 0.2s;
+}
+.hero-cta:hover { background: var(–warm-yellow); transform: translateY(-2px); }
+.scroll-hint {
+position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 3px;
+text-transform: uppercase; animation: bounce 2s infinite;
+}
+
+/* ABOUT STRIP */
+.about-strip { background: var(–deep-red); padding: 26px 5%; display: flex; align-items: center; justify-content: center; gap: 50px; flex-wrap: wrap; }
+.strip-item { text-align: center; color: #fff; }
+.strip-item .num { font-size: 2rem; line-height: 1; }
+.strip-item .label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-top: 4px; }
+.strip-divider { width: 1px; height: 45px; background: rgba(255,255,255,0.2); }
+
+/* SECTION TITLE */
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-eyebrow { font-family: ‘Barlow Condensed’, sans-serif; font-size: 0.78rem; letter-spacing: 4px; text-transform: uppercase; color: var(–gold); margin-bottom: 10px; }
+.section-header h2 { font-family: ‘Playfair Display’, serif; font-size: clamp(2rem,5vw,3.2rem); font-weight: 700; color: var(–dark); line-height: 1.1; }
+.section-header .rule { width: 60px; height: 3px; background: var(–gold); margin: 14px auto 0; border-radius: 2px; }
+
+/* FOOD GALLERY */
+.food-gallery { padding: 80px 5% 70px; background: var(–cream); }
+.gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; max-width: 1100px; margin: 0 auto; }
+.gallery-item { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-label {
+position: absolute; bottom: 0; left: 0; right: 0;
+background: linear-gradient(transparent, rgba(0,0,0,0.75));
+color: #fff; font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.85rem; letter-spacing: 1px; padding: 24px 12px 10px; text-align: center;
+}
+
+/* MENU */
+.menu-section { padding: 90px 5%; background: #fff; scroll-margin-top: 70px; }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap: 36px; max-width: 1100px; margin: 0 auto; }
+.menu-category { background: var(–cream); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid rgba(212,160,23,0.15); }
+.category-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+.category-header { background: var(–dark); padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+.category-icon { font-size: 1.4rem; }
+.category-title-wrap h3 { font-family: ‘Playfair Display’, serif; font-size: 1.2rem; color: var(–warm-yellow); font-weight: 700; }
+.category-title-wrap p { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-top: 2px; font-style: italic; }
+.menu-items { padding: 8px 0; }
+.menu-item { display: flex; align-items: center; justify-content: space-between; padding: 13px 24px; border-bottom: 1px solid rgba(0,0,0,0.05); transition: background 0.15s; }
+.menu-item:last-child { border-bottom: none; }
+.menu-item:hover { background: rgba(212,160,23,0.06); }
+.item-name { font-weight: 500; font-size: 0.98rem; color: var(–text-brown); }
+.item-tag { font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; margin-left: 7px; font-family: ‘Barlow Condensed’, sans-serif; }
+.tag-buff { background: rgba(192,57,43,0.1); color: var(–rust); }
+.tag-chicken { background: rgba(212,160,23,0.12); color: #8a6000; }
+.tag-veg { background: rgba(46,150,60,0.12); color: #2a7a30; }
+.item-price { font-family: ‘Barlow Condensed’, sans-serif; font-size: 1.1rem; font-weight: 700; color: var(–deep-red); white-space: nowrap; }
+.item-price::before { content: ‘₹’; font-size: 0.75rem; font-weight: 400; opacity: 0.7; }
+
+/* CHEF SPECIAL */
+.chef-special-banner { background: linear-gradient(135deg, var(–dark) 0%, #3D1515 100%); padding: 70px 5%; text-align: center; position: relative; overflow: hidden; }
+.chef-special-banner::before { content: ‘✦’; position: absolute; font-size: 16rem; color: rgba(212,160,23,0.04); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.chef-special-banner .eyebrow { font-family: ‘Barlow Condensed’, sans-serif; letter-spacing: 5px; font-size: 0.8rem; text-transform: uppercase; color: var(–gold); margin-bottom: 12px; }
+.chef-special-banner h2 { font-family: ‘Playfair Display’, serif; font-size: clamp(1.8rem,4vw,3rem); color: #fff; margin-bottom: 8px; }
+.chef-special-banner .desc { color: rgba(255,255,255,0.5); font-style: italic; font-size: 0.95rem; margin-bottom: 30px; }
+.special-card { display: inline-block; background: rgba(255,255,255,0.06); border: 1px solid rgba(212,160,23,0.3); border-radius: 12px; padding: 26px 48px; }
+.special-card .dish-name { font-family: ‘Playfair Display’, serif; font-size: 1.5rem; color: var(–warm-yellow); margin-bottom: 5px; }
+.special-card .dish-sub { color: rgba(255,255,255,0.45); font-size: 0.82rem; margin-bottom: 18px; font-style: italic; }
+.special-price { font-family: ‘Barlow Condensed’, sans-serif; font-size: 2.8rem; font-weight: 700; color: #fff; line-height: 1; }
+.special-price sup { font-size: 1.1rem; color: var(–gold); vertical-align: super; font-weight: 400; }
+
+/* FEATURES */
+.features-section { padding: 80px 5%; background: var(–cream); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 28px; max-width: 1000px; margin: 0 auto; }
+.feature-card { text-align: center; padding: 32px 20px; background: #fff; border: 1px solid rgba(212,160,23,0.2); border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s; }
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.07); }
+.feature-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; }
+.feature-card h4 { font-family: ‘Playfair Display’, serif; font-size: 1.05rem; margin-bottom: 7px; color: var(–dark); }
+.feature-card p { font-size: 0.85rem; color: #888; line-height: 1.6; }
+
+/* CONTACT */
+.contact-section { padding: 80px 5%; background: var(–dark); text-align: center; scroll-margin-top: 70px; }
+.contact-section .section-header h2 { color: #fff; }
+.contact-section .section-eyebrow { color: var(–gold); }
+.contact-section .rule { background: var(–gold); }
+.contact-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 46px; }
+.contact-item { color: rgba(255,255,255,0.7); }
+.contact-item .c-icon { font-size: 1.7rem; margin-bottom: 9px; display: block; }
+.contact-item h4 { font-family: ‘Barlow Condensed’, sans-serif; letter-spacing: 2px; text-transform: uppercase; font-size: 0.72rem; color: var(–gold); margin-bottom: 5px; }
+.contact-item p { font-size: 0.92rem; line-height: 1.65; }
+.contact-item a { color: var(–warm-yellow); text-decoration: none; }
+.contact-item a:hover { text-decoration: underline; }
+.map-wrap { max-width: 700px; margin: 50px auto 0; border-radius: 14px; overflow: hidden; border: 2px solid rgba(212,160,23,0.2); }
+.map-wrap iframe { display: block; width: 100%; height: 280px; border: none; }
+
+/* FOOTER */
+footer { background: #0d0900; padding: 22px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-top: 1px solid rgba(212,160,23,0.15); }
+footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 1px; }
+.footer-logo { font-family: ‘Playfair Display’, serif; color: var(–gold); font-size: 1rem; }
+.halal-footer { background: #1a6b1a; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+@media (max-width: 640px) {
+.nav-links { display: none; }
+.strip-divider { display: none; }
+.about-strip { gap: 24px; }
+.menu-grid { grid-template-columns: 1fr; }
+.gallery-grid { grid-template-columns: repeat(2,1fr); }
+.special-card { padding: 20px 24px; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Tashi <span>Momo House</span></div>
+  <ul class="nav-links">
+    <li><a onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Menu</a></li>
+    <li><a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a></li>
+    <li><a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a></li>
+  </ul>
+  <span class="halal-badge-nav">✓ Halal</span>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="prayer-flags">
+    <span class="pf1"></span><span class="pf2"></span><span class="pf3"></span><span class="pf4"></span><span class="pf5"></span>
+    <span class="pf6"></span><span class="pf7"></span><span class="pf8"></span><span class="pf9"></span><span class="pf10"></span>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Authentic Tibetan Flavours · Bengaluru</p>
+    <h1>Tashi<span class="accent">Momo House</span></h1>
+    <p class="hero-sub">Dumplings · Thukpa · Chowmein · Rice</p>
+    <div class="hero-badges">
+      <span class="badge">Traditional Recipes</span>
+      <span class="badge green">✓ Halal Certified</span>
+      <span class="badge">Home-made Chutney</span>
+    </div>
+    <button class="hero-cta" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Explore Our Menu</button>
+  </div>
+  <div class="scroll-hint">↓ scroll</div>
+</section>
+
+<!-- ABOUT STRIP -->
+
+<div class="about-strip">
+  <div class="strip-item"><div class="num">🥟</div><div class="label">Hand-crafted Momos</div></div>
+  <div class="strip-divider"></div>
+  <div class="strip-item"><div class="num">🍜</div><div class="label">Hearty Thukpa</div></div>
+  <div class="strip-divider"></div>
+  <div class="strip-item"><div class="num">🌶️</div><div class="label">Spicy Home Chutney</div></div>
+  <div class="strip-divider"></div>
+  <div class="strip-item"><div class="num">⏰</div><div class="label">Open All 7 Days</div></div>
+  <div class="strip-divider"></div>
+  <div class="strip-item"><div class="num">✅</div><div class="label">Halal Certified</div></div>
+</div>
+
+<!-- FOOD GALLERY -->
+
+<section class="food-gallery">
+  <div class="section-header">
+    <p class="section-eyebrow">A Feast for the Eyes</p>
+    <h2>Our Food</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&q=80" alt="Steamed Momos">
+      <div class="gallery-label">Steamed Momos</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" alt="Thukpa Noodle Soup">
+      <div class="gallery-label">Thukpa Soup</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80" alt="Fried Rice">
+      <div class="gallery-label">Fried Rice</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80" alt="Chowmein">
+      <div class="gallery-label">Chowmein</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <p class="section-eyebrow">What We Serve</p>
+    <h2>Our Menu</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="menu-grid">
+
+```
+<div class="menu-category">
+  <img class="category-img" src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=700&q=80" alt="Momos">
+  <div class="category-header">
+    <span class="category-icon">🥟</span>
+    <div class="category-title-wrap">
+      <h3>Momo (Dumplings)</h3>
+      <p>Steamed with home-made spicy chilli chutney</p>
+    </div>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item"><div><span class="item-name">Buff Momo</span><span class="item-tag tag-buff">Buff</span></div><span class="item-price">120</span></div>
+    <div class="menu-item"><div><span class="item-name">Chicken Momo</span><span class="item-tag tag-chicken">Chicken</span></div><span class="item-price">110</span></div>
+    <div class="menu-item"><div><span class="item-name">Veg Momo</span><span class="item-tag tag-veg">Veg</span></div><span class="item-price">80</span></div>
+  </div>
+</div>
+
+<div class="menu-category">
+  <img class="category-img" src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=700&q=80" alt="Thukpa">
+  <div class="category-header">
+    <span class="category-icon">🍜</span>
+    <div class="category-title-wrap">
+      <h3>Thukpa &amp; Noodles</h3>
+      <p>Hearty Tibetan noodle soups and stir-fries</p>
+    </div>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item"><div><span class="item-name">Buff Thukpa</span><span class="item-tag tag-buff">Buff</span></div><span class="item-price">120</span></div>
+    <div class="menu-item"><div><span class="item-name">Chicken Thukpa</span><span class="item-tag tag-chicken">Chicken</span></div><span class="item-price">110</span></div>
+    <div class="menu-item"><div><span class="item-name">Buff Chowmein</span><span class="item-tag tag-buff">Buff</span></div><span class="item-price">120</span></div>
+    <div class="menu-item"><div><span class="item-name">Chicken Chowmein</span><span class="item-tag tag-chicken">Chicken</span></div><span class="item-price">110</span></div>
+  </div>
+</div>
+
+<div class="menu-category">
+  <img class="category-img" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=700&q=80" alt="Fried Rice">
+  <div class="category-header">
+    <span class="category-icon">🍚</span>
+    <div class="category-title-wrap">
+      <h3>Rice Dishes</h3>
+      <p>Wok-tossed flavorful rice</p>
+    </div>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item"><div><span class="item-name">Buff Fried Rice</span><span class="item-tag tag-buff">Buff</span></div><span class="item-price">120</span></div>
+    <div class="menu-item"><div><span class="item-name">Chicken Fried Rice</span><span class="item-tag tag-chicken">Chicken</span></div><span class="item-price">110</span></div>
+    <div class="menu-item"><div><span class="item-name">Egg Fried Rice</span><span class="item-tag tag-chicken">Egg</span></div><span class="item-price">100</span></div>
+    <div class="menu-item"><div><span class="item-name">Veg Fried Rice</span><span class="item-tag tag-veg">Veg</span></div><span class="item-price">80</span></div>
+  </div>
+</div>
+
+<div class="menu-category">
+  <img class="category-img" src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=700&q=80" alt="Sha Phaley">
+  <div class="category-header">
+    <span class="category-icon">🥙</span>
+    <div class="category-title-wrap">
+      <h3>Sha Phaley</h3>
+      <p>Deep-fried meat pies with a crispy golden crust</p>
+    </div>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item"><div><span class="item-name">Buff Sha Phaley</span><span class="item-tag tag-buff">Buff</span></div><span class="item-price">120</span></div>
+    <div class="menu-item"><div><span class="item-name">Chicken Sha Phaley</span><span class="item-tag tag-chicken">Chicken</span></div><span class="item-price">110</span></div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- CHEF'S SPECIAL -->
+
+<section class="chef-special-banner">
+  <p class="eyebrow">✦ Chef's Special ✦</p>
+  <h2>Today's Recommendation</h2>
+  <p class="desc">Succulent sliced meat sautéed with ginger, garlic &amp; green chilies</p>
+  <div class="special-card">
+    <div class="dish-name">Shaptak with Steamed Rice</div>
+    <div class="dish-sub">(Buff) — A true Tibetan classic</div>
+    <div class="special-price"><sup>₹</sup>190</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+
+<section class="features-section" id="about">
+  <div class="section-header">
+    <p class="section-eyebrow">Why We're Different</p>
+    <h2>The Tashi Way</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card"><span class="feature-icon">🏔️</span><h4>Authentic Tibetan</h4><p>Recipes passed down through generations, cooked the traditional way.</p></div>
+    <div class="feature-card"><span class="feature-icon">🌶️</span><h4>House-made Chutney</h4><p>Our signature spicy chilli chutney, made fresh every single day.</p></div>
+    <div class="feature-card"><span class="feature-icon">✅</span><h4>Halal Certified</h4><p>All meats sourced from certified halal suppliers.</p></div>
+    <div class="feature-card"><span class="feature-icon">💰</span><h4>Honest Prices</h4><p>Big flavours, humble prices. Real food for real people.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact-section" id="contact">
+  <div class="section-header">
+    <p class="section-eyebrow">Come Visit Us</p>
+    <h2>Find Us</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <span class="c-icon">📍</span>
+      <h4>Address</h4>
+      <p>Camlyn Chambers, Leonard Ln<br>Richmond Town<br>Bengaluru, Karnataka 560025</p>
+    </div>
+    <div class="contact-item">
+      <span class="c-icon">🕐</span>
+      <h4>Hours</h4>
+      <p>Open All 7 Days<br>11:00 AM – 10:00 PM</p>
+    </div>
+    <div class="contact-item">
+      <span class="c-icon">📞</span>
+      <h4>Phone</h4>
+      <p><a href="tel:+916361203623">+91 6361 203 623</a></p>
+    </div>
+    <div class="contact-item">
+      <span class="c-icon">💬</span>
+      <h4>Order on WhatsApp</h4>
+      <p><a href="https://wa.me/916361203623" target="_blank">Chat to Order →</a></p>
+    </div>
+  </div>
+  <div class="map-wrap">
+    <iframe
+      src="https://www.google.com/maps?q=Camlyn+Chambers,+Leonard+Ln,+Richmond+Town,+Bengaluru,+Karnataka+560025&output=embed"
+      allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <span class="footer-logo">Tashi Momo House</span>
+  <p>© 2025 Tashi Momo House · Richmond Town, Bengaluru</p>
+  <span class="halal-footer">✓ Halal</span>
+</footer>
+
+</body>
+</html>
